@@ -14,7 +14,7 @@ on:
 
 # Define the env variables
 env:
-  LOCAL_DIR: /home/github/actions-runner/_work/nifi-registry-migrate-code-test
+  LOCAL_DIR: /home/github/actions-runner/_work/nifi-registry-migrate-code-test/nifi-registry-migrate-code-test
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
