@@ -14,7 +14,7 @@ on:
 
 # Define the env variables
 env:
-  LOCAL_DIR: /home/github/actions-runner/_work
+  LOCAL_DIR: /home/github/actions-runner/_work/nifi-registry-migrate-code-test
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,7 +33,7 @@ jobs:
         # Cloning the repository and putting it in the LOCAL_DIR dir in self-hosted runner node.
           repository: subin-telus/nifi-registry-migrate-code-test
           token: ${{ secrets.TOKEN }}
-          path: ${{ env.LOCAL_DIR }}
+          #path: ${{ env.LOCAL_DIR }}
 
       # Runs a single command using the runners shell
       - name: Triggering wrapper script
