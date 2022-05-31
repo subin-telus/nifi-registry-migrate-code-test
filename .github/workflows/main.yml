@@ -37,7 +37,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Triggering wrapper script
-        run: sh ${{ env.LOCAL_DIR }}/wrapper.sh http://192.168.0.2:9090 dev-random-generate http://192.168.0.3:9090
+        run: sh ${{ env.LOCAL_DIR }}/wrapper.sh http://192.168.0.2:9090 dev-random-generate01 http://192.168.0.3:9090
         shell: sh
 
       # Runs a set of commands using the runners shell
