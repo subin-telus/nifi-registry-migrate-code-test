@@ -31,8 +31,7 @@ jobs:
      id: conda-version
      shell: bash
      run: |
-      echo "relative path is ${GITHUB_WORKSPACE}"
-      conda_ver="$(conda --version)"
+      conda_ver="$(cond --version)"
       laststat=$?
       if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Conda Installed"
