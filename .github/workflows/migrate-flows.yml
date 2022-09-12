@@ -29,9 +29,10 @@ jobs:
    
    - name: Check Conda Installation
      id: conda-version
+     if: conda_ver="$(cond --version
      shell: bash
      run: |
-      conda_ver="$(cond --version 1> /dev/null 2> /dev/null)"
+      echo "::set-output name=conda_ver::$(cond --version)"
       laststat=$?
       if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Conda Installed"
