@@ -29,7 +29,6 @@ jobs:
    
    - name: Check Conda Installation
      id: conda-version
-     if: conda_ver="$(cond --version
      shell: bash
      run: |
       conda_ver="$(cond --version)"
