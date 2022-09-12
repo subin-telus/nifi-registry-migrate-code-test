@@ -32,21 +32,7 @@ jobs:
      if: conda_ver="$(cond --version
      shell: bash
      run: |
-      echo "::set-output name=conda_ver::$(cond --version)"
-      laststat=$?
-      if ([ "${laststat}" == 0 ]) then
-        echo -e "[`date --iso-8601=seconds`] - Conda Installed"
-      else
-        echo -e "[`date --iso-8601=seconds`] - Conda not found. Initiating installation."
-        sh anaconda_installer.sh
-        laststat=$?
-        if ([ "${laststat}" == 0 ]) then
-          echo -e "[`date --iso-8601=seconds`] - Conda Installation Completed."
-        else
-          echo -e "[`date --iso-8601=seconds`] - Conda Installation Failed. Exiting..."
-          exit
-        fi
-      fi
-    
-      
-     
+      conda_ver="$(cond --version)"
+      echo "::set-output name=conda_ver::$conda_ver"
+      echo -e "${{ conda_ver }}"
+     continue-on-error: true
