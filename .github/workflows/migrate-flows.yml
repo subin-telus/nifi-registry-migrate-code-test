@@ -31,7 +31,7 @@ jobs:
      id: conda-version
      shell: bash
      run: |
-      echo "relative path is ${{ GITHUB_WORKSPACE }}"
+      echo "relative path is ${GITHUB_WORKSPACE}"
       conda_ver="$(conda --version)"
       laststat=$?
       if ([ "${laststat}" == 0 ]) then
