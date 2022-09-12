@@ -7,7 +7,7 @@ on:
 env:
  download_dir: "/tmp"
  anaconda_location: "/apps/anaconda"
- anaconda_bin_path: ${{ env.anaconda_location }}"/bin"
+ anaconda_bin_path: ${{ anaconda_location }}"/bin"
  conda_env: "nifi_reg_py_env"
  conda_packages: "python=3.9.12 pip=21.2.4"
  pip_modules: "nipyapi pip_search jproperties"
