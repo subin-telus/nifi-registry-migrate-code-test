@@ -31,7 +31,7 @@ jobs:
      id: conda-version
      shell: bash
      run: |
-      conda_ver="$(cond --version)"
+      conda_ver="$(cond --version 1> /dev/null 2> /dev/null)"
       laststat=$?
       if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Conda Installed"
