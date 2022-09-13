@@ -28,9 +28,9 @@ jobs:
       token: ${{ secrets.TOKEN }}
    
    - name: Check Conda Installation
-     id: conda-version
+     id: get-conda-version
      shell: bash
      run: |
-      echo "::set-output name=conda_ve::$(conda --version)"
-      echo -e "${{ conda_ver }}"
+      echo "::set-output name=conda_version::$(conda --version)"
+      echo -e "${{ conda_version }}"
      continue-on-error: true
