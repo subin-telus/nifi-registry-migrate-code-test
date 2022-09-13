@@ -35,9 +35,11 @@ jobs:
      run: |
       conda_ver="$(conda --version)"
       echo "::set-output name=conda_version::$conda_ver"
+      ver_len="$(echo ${conda_ver} | wc -m)"
+      echo "::set-output name=ver_length::$ver_len"
      continue-on-error: true
    - name: Check Conda Version
-     if: length(${{ steps.get-conda-version.outputs.conda_version }}) < 2
+     if: steps.get-conda-version.outputs.ver_length <= 1
      run: |
-      echo ${{ steps.get-conda-version.outputs.conda_version }} | wc -m
+      echo "the length is: ${{ steps.get-conda-version.outputs.ver_length }}"
       #sh anaconda_installer.sh
