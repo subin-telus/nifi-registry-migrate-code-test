@@ -27,11 +27,11 @@ if [[ -f "${download_dir}/${anaconda_installer}" ]]; then
                         if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
                                 echo -e "[`date --iso-8601=seconds`] - Checksum is matching."
                         else
-                                echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting..."
+                                echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
                                 exit
                         fi
                 else
-                        echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting..."
+                        echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
                         exit
                 fi
         fi
@@ -43,12 +43,13 @@ else
                 if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
                         echo -e "[`date --iso-8601=seconds`] - Checksum is matching."
                 else
-                        echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting..."
+                        echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
                 fi
         else
-                echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting..."
+                echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
         fi
 fi
+echo -e "\nChecking if Installer file downloaded. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nInstall Anaconda. Starting..."
 if [ -d "${anaconda_location}" ]; then
@@ -62,9 +63,10 @@ echo -e "<<------------------------XXXXXXX------------------------>>\n"
 if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Installation successful."
 else
-        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting..."
+        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
         exit
 fi
+echo -e "\nInstall Anaconda. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nAdd Anaconda to PATH. Starting..."
 #Removing if already added to PATH
@@ -83,10 +85,12 @@ source ~/.bash_profile
 export PATH=$PATH
 echo -e "$PATH"
 echo -e "Anaconda PATH sourced to bash_profile."
-conda_ver="$(conda --version)"
+echo -e "\nAdd Anaconda to PATH. Completed - [\033[0;32mOK\033[0m]"
 
+conda_ver="$(conda --version)"
 echo -e "\nGet conda version. Starting..."
 echo -e "[`date --iso-8601=seconds`] - conda version: ${conda_ver}"
+echo -e "\nGet conda version. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nInstall python and create virtual env. Starting..."
 conda install anaconda-clean -y
@@ -95,18 +99,19 @@ laststat=$?
 if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Installation successful."
 else
-        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting..."
+        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
         exit
 fi
+echo -e "\nInstall python and create virtual env. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nHook conda to bash. Starting..."
 eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
-echo -e "Hook conda to bash completed."
+echo -e "\nHook conda to bash completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nChange conda configs. Starting..."
 conda config --set report_errors false
 conda config --set auto_activate_base false
-echo -e "Setting configs completed."
+echo -e "\nSetting configs completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nInitialize conda and activate virtual env. Starting..."
 conda init bash
@@ -115,9 +120,10 @@ laststat=$?
 if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Activating env: ${conda_env} successful."
 else
-        echo -e "[`date --iso-8601=seconds`] - Activating env: ${conda_env} failed. Exiting..."
+        echo -e "[`date --iso-8601=seconds`] - Activating env: ${conda_env} failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
         exit
 fi
+echo -e "\nInitialize conda and activate virtual env. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nInstall python modules. Starting..."
 export https_proxy="http://webproxystatic-on.tsl.telus.com:8080"
@@ -126,18 +132,21 @@ laststat=$?
 if ([ "${laststat}" == 0 ]) then
         echo -e "[`date --iso-8601=seconds`] - Installation successful."
 else
-        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting..."
+        echo -e "[`date --iso-8601=seconds`] - Installation failed. Exiting...\n[\033[0;31mFAILED\033[0m]\n"
         exit
 fi
+echo -e "\nInstall python modules. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nDeactivate virtual env. Starting..."
 conda deactivate
-echo -e "Virtual env deactivated."
+echo -e "\nVirtual env deactivated - [\033[0;32mOK\033[0m]"
 
 echo -e "\nList virtual envs. Starting..."
 conda info --envs
+echo -e "\nList virtual envs. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\nList packages installed in virtual env: ${conda_env}. Starting..."
 conda list -n ${conda_env}
+echo -e "\nList packages installed in virtual env: ${conda_env}. Completed - [\033[0;32mOK\033[0m]"
 
 echo -e "\n"
