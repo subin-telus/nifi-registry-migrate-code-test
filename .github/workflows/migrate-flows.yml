@@ -52,7 +52,6 @@ jobs:
       
  python_installation_check:
   runs-on: self-hosted
-  needs: [checkout_repo]
   steps:
    - name: Connect to venv
      id: connect-venv
