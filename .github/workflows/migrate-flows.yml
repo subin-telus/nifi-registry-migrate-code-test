@@ -31,6 +31,6 @@ jobs:
      id: conda-version
      shell: bash
      run: |
-      echo "::set-output name=conda_ver::$(conda --version)"
+      echo "::set-output name=conda_ve::$(conda --version)"
       echo -e "${{ conda_ver }}"
      continue-on-error: true
