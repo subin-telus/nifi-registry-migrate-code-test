@@ -33,7 +33,7 @@ jobs:
      run: |
       CONDA_VER="$(conda --version)"
       echo "$CONDA_VER"
-      echo "::set-output name=conda_version::$(CONDA_VER)"
+      echo "::set-output name=conda_version::$CONDA_VER"
      continue-on-error: true
    - name: Echo conda version
      run: |
