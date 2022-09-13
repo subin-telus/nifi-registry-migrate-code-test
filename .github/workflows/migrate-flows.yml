@@ -37,6 +37,7 @@ jobs:
       echo "::set-output name=conda_version::$conda_ver"
      continue-on-error: true
    - name: Check Conda Version
-     if: length(${{ steps.get-conda-version.outputs.conda_version }}) == 0
+     if: length(${{ steps.get-conda-version.outputs.conda_version }}) < 2
      run: |
-      sh anaconda_installer.sh
+      echo ${{ steps.get-conda-version.outputs.conda_version }} | wc -m
+      #sh anaconda_installer.sh
