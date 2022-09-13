@@ -25,7 +25,7 @@ jobs:
       repository: ${{ env.repo }}
       token: ${{ secrets.TOKEN }}
  
- conda_installation:
+ conda_installation_check:
   runs-on: self-hosted
   needs: [checkout_repo]
   steps:
@@ -33,13 +33,38 @@ jobs:
      id: get-conda-version
      shell: bash
      run: |
-      conda_ver="$(cond --version)"
-      echo "::set-output name=conda_version::$conda_ver"
-      ver_len="$(echo ${conda_ver} | wc -m)"
-      echo "::set-output name=ver_length::$ver_len"
-     continue-on-error: true
+      conda --version 1> temp.txt 2>> temp.txt
+      conda_ver=$(head temp.txt)
+      not_found="command not found"
+      if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
+       value="true"
+      else
+       vaue="false"
+      fi
+      echo "::set-output name=ver_value::$value"
+      rm -rf temp.txt
    - name: Check Conda Version
-     if: steps.get-conda-version.outputs.ver_length <= 1
+     if: steps.get-conda-version.outputs.ver_value == "true"
+     shell: bash
      run: |
-      echo "the length is: ${{ steps.get-conda-version.outputs.ver_length }}"
-      #sh anaconda_installer.sh
+      echo -e "\nInstalling Conda\n"
+      sh anaconda_installer.sh
+      
+ python_installation_check:
+  runs-on: self-hosted
+  needs: [checkout_repo]
+  steps:
+   - name: Connect to venv
+     id: connect-venv
+     shell: bash
+     run: |
+      conda init bash
+      conda activate ${{ conda_env }} 1> temp.txt 2>> temp.txt
+      rm -rf temp.txt
+      def_env=$(echo $CONDA_DEFAULT_ENV)
+      echo "::set-output name=default_env::$def_env"
+   - name: Check if connected to venv
+     if: ${{ steps.connect-venv.outputs.default_env }} != ${{ conda_env }}
+     run: |
+      echo "::error::Unable to activate conda venv - ${{ conda_env }}. Exiting..."
+      exit 1
