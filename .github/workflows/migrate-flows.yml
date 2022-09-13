@@ -33,7 +33,7 @@ jobs:
      id: get-conda-version
      shell: bash
      run: |
-      conda_ver="$(conda --version)"
+      conda_ver="$(cond --version)"
       echo "::set-output name=conda_version::$conda_ver"
       ver_len="$(echo ${conda_ver} | wc -m)"
       echo "::set-output name=ver_length::$ver_len"
