@@ -44,7 +44,7 @@ jobs:
       echo "::set-output name=ver_value::$value"
       rm -rf temp.txt
    - name: Check Conda Version
-     if: steps.get-conda-version.outputs.ver_value == "true"
+     if: steps.get-conda-version.outputs.ver_value == 'true'
      shell: bash
      run: |
       echo -e "\nInstalling Conda\n"
