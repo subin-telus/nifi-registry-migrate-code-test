@@ -16,26 +16,28 @@ env:
 
 jobs:
  
- Conda-Python-Pip-Modules:
+ checkout_repo:
   runs-on: self-hosted
-  
   steps:
-   
    - name: Checkout Repository
      uses: actions/checkout@v3
      with:
       repository: ${{ env.repo }}
       token: ${{ secrets.TOKEN }}
-   
-   - name: Check Conda Installation
+ 
+ conda_installation:
+  runs-on: self-hosted
+  needs: [checkout_repo]
+  steps:
+   - name: Get Conda Version
      id: get-conda-version
      shell: bash
      run: |
-      CONDA_VER="$(cond --version)"
-      echo "$CONDA_VER"
-      echo "::set-output name=conda_version::$CONDA_VER"
+      conda_ver="$(cond --version)"
+      echo "::set-output name=conda_version::$conda_ver"
      continue-on-error: true
-   - name: Echo conda version
+   - name: Check Conda Version
+     if: length(${{ steps.get-conda-version.outputs.conda_version }}) == 0
      run: |
-      echo " Conda version is ${{ steps.get-conda-version.outputs.conda_version }}"
+      sh anaconda_installer.sh
      continue-on-error: true
