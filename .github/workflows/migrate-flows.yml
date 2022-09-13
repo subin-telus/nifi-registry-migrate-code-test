@@ -31,6 +31,7 @@ jobs:
      id: get-conda-version
      shell: bash
      run: |
-      echo "::set-output name=conda_version::$(conda --version)"
+      CONDA_VER="$(conda --version)"
+      echo "::set-output name=conda_version::$CONDA_VER"
       echo " Conda version is ${{ steps.get-conda-version.outputs.conda_version }}"
      continue-on-error: true
