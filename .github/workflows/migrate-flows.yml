@@ -33,11 +33,10 @@ jobs:
      id: get-conda-version
      shell: bash
      run: |
-      conda_ver="$(cond --version)"
+      conda_ver="$(conda --version)"
       echo "::set-output name=conda_version::$conda_ver"
      continue-on-error: true
    - name: Check Conda Version
      if: length(${{ steps.get-conda-version.outputs.conda_version }}) == 0
      run: |
       sh anaconda_installer.sh
-     continue-on-error: true
