@@ -58,12 +58,12 @@ jobs:
      shell: bash
      run: |
       conda init bash
-      conda activate ${{ conda_env }} 1> temp.txt 2>> temp.txt
+      conda activate ${{ env.conda_env }} 1> temp.txt 2>> temp.txt
       rm -rf temp.txt
       def_env=$(echo $CONDA_DEFAULT_ENV)
       echo "::set-output name=default_env::$def_env"
    - name: Check if connected to venv
-     if: ${{ steps.connect-venv.outputs.default_env }} != ${{ conda_env }}
+     if: ${{ steps.connect-venv.outputs.default_env }} != ${{ env.conda_env }}
      run: |
-      echo "::error::Unable to activate conda venv - ${{ conda_env }}. Exiting..."
+      echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
       exit 1
