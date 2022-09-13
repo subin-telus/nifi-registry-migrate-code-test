@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-download_dir="/tmp" 
+download_dir="/tmp"
 checksum_from_url="a01150aff48fcb6fcd6472381652de04"
 anaconda_location="/apps/anaconda"
 anaconda_bin_path="${anaconda_location}/bin"
@@ -9,32 +9,45 @@ repo_url="https://repo.anaconda.com/archive"
 anaconda_exec_file_from_url="Anaconda3-2022.05-Linux-x86_64.sh"
 conda_env="nifi_reg_py_env"
 conda_packages="python=3.9.12 pip=21.2.4"
-pip_modules="nipyapi pip_search jproperties"
+pip_modules="nipyapi pip_search"
 proxy="http://webproxystatic-on.tsl.telus.com:8080"
 
 #Download and install anaconda
 echo -e "\nChecking if Installer file downloaded. Starting..."
 if [[ -f "${download_dir}/${anaconda_installer}" ]]; then
-	checksum_from_download=$(md5sum ${download_dir}/${anaconda_installer}| cut -d " " -f 1)
-	if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
-		echo -e "[`date --iso-8601=seconds`] - Checksum for Installer is matching. Proceeding with Installation."
-	else
-		echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Downloading Installer."
-		rm -rf ${download_dir}/${anaconda_installer}
-		if cd ${download_dir} && curl ${repo_url}/${anaconda_exec_file_from_url} --output ${anaconda_installer}; then
-			echo -e "[`date --iso-8601=seconds`] - Download successful."
-			checksum_from_download=$(md5sum ${download_dir}/${anaconda_installer}| cut -d " " -f 1)
-			if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
-				echo -e "[`date --iso-8601=seconds`] - Checksum is matching."
-			else
-				echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting..."
-				exit
-			fi
-		else
-			echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting..."
-			exit
-		fi
-	fi
+        checksum_from_download=$(md5sum ${download_dir}/${anaconda_installer}| cut -d " " -f 1)
+        if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
+                echo -e "[`date --iso-8601=seconds`] - Checksum for Installer is matching. Proceeding with Installation."
+        else
+                echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Downloading Installer."
+                rm -rf ${download_dir}/${anaconda_installer}
+                if cd ${download_dir} && curl ${repo_url}/${anaconda_exec_file_from_url} --output ${anaconda_installer}; then
+                        echo -e "[`date --iso-8601=seconds`] - Download successful."
+                        checksum_from_download=$(md5sum ${download_dir}/${anaconda_installer}| cut -d " " -f 1)
+                        if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
+                                echo -e "[`date --iso-8601=seconds`] - Checksum is matching."
+                        else
+                                echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting..."
+                                exit
+                        fi
+                else
+                        echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting..."
+                        exit
+                fi
+        fi
+else
+        echo -e "[`date --iso-8601=seconds`] - Installer file not found. Downloading."
+        if cd ${download_dir} && curl ${repo_url}/${anaconda_exec_file_from_url} --output ${anaconda_installer}; then
+                echo -e "[`date --iso-8601=seconds`] - Download successful."
+                checksum_from_download=$(md5sum ${download_dir}/${anaconda_installer}| cut -d " " -f 1)
+                if [ "${checksum_from_url}" == "${checksum_from_download}" ]; then
+                        echo -e "[`date --iso-8601=seconds`] - Checksum is matching."
+                else
+                        echo -e "[`date --iso-8601=seconds`] - Checksum donot match. Exiting..."
+                fi
+        else
+                echo -e "[`date --iso-8601=seconds`] - Download Failed. Exiting..."
+        fi
 fi
 
 echo -e "\nInstall Anaconda. Starting..."
@@ -59,7 +72,7 @@ PATH=:$PATH:
 PATH=${PATH//:${anaconda_bin_path}:/:}
 PATH=${PATH#:}; PATH=${PATH%:}
 sed -i '/^#<<----/,/#<<------/d' ~/.bash_profile
-sed -i '/^# >>>/,/^# <<</d' ~/.bashrc
+sed -i '/^# >>>/,/^# <<</d' ~/.bash_profile
 #Adding to PATH
 echo -e "#<<---- Anaconda Script Entries ---->>" >> ~/.bash_profile
 PATH="${PATH:+${PATH}:}${anaconda_bin_path}"
