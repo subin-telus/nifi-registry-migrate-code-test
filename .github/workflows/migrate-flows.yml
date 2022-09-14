@@ -39,20 +39,19 @@ jobs:
         id: get-conda-version
         shell: bash
         run: |
-          cond --version 1> temp.txt 2>> temp.txt
-          conda_ver=$(head temp.txt)
+          conda_ver=$(cond --version)
           not_found="command not found"
           if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
-           value="true"
+           value="no_conda"
           else
-           value="false"
+           value="yes_conda"
           fi
           echo "::set-output name=ver_value::$value"
           rm -rf temp.txt
         continue-on-error: true
 
       - name: Check Conda Version
-        if: ${{ steps.get-conda-version.outputs.ver_value }} == 'true'
+        if: ${{ steps.get-conda-version.outputs.ver_value }} == "no_conda"
         shell: bash
         run: |
           echo ${{ steps.get-conda-version.outputs.ver_value }}
