@@ -66,7 +66,8 @@ jobs:
         id: connect-venv
         shell: bash
         run: |
-          #conda init bash
+          eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+          conda init bash
           conda activate ${{ env.conda_env }}
           def_env=$(echo $CONDA_DEFAULT_ENV)
           echo "::set-output name=default_env::$def_env"
