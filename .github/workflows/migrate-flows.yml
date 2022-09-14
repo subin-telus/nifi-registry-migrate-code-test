@@ -72,7 +72,7 @@ jobs:
           def_env=$(echo $CONDA_DEFAULT_ENV)
           echo -e "def env is -${def_env}-"
           echo -e "default - $CONDA_DEFAULT_ENV"
-          echo "::set-output name=default_env::$def_env"
+          echo "::set-output name=default_env::$(echo $CONDA_DEFAULT_ENV)"
           echo -e "outout env is -${{ steps.connect-venv.outputs.default_env }}-"
 
       - name: Check if connected to venv
