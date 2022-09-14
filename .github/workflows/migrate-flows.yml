@@ -70,7 +70,10 @@ jobs:
           conda init bash
           conda activate ${{ env.conda_env }}
           def_env=$(echo $CONDA_DEFAULT_ENV)
+          echo -e "def env is -${def_env}-"
+          echo -e "default - $CONDA_DEFAULT_ENV"
           echo "::set-output name=default_env::$def_env"
+          echo -e "outout env is -${{ default_env }}-"
 
       - name: Check if connected to venv
         if: ${{ steps.connect-venv.outputs.default_env }} != ${{ env.conda_env }}
