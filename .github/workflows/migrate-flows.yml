@@ -45,18 +45,18 @@ jobs:
         shell: bash
         id: check-conda-version
         run: |
-         conda_ver=$(head temp.txt)
-         rm -rf temp.txt
-         echo -e "conda ver=${conda_ver}-"
-         not_found="command not found"
-         echo -e "conda not found -${not_found}"
-         if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
-          value="no_conda"
-         else
-          value="yes_conda"
-         fi
-         echo -e "value is -${value}"
-         echo "::set-output name=ver_value::$value"
+          conda_ver=$(head temp.txt)
+          rm -rf temp.txt
+          echo -e "conda ver=${conda_ver}-"
+          not_found="command not found"
+          echo -e "conda not found -${not_found}"
+          if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
+            value="no_conda"
+          else
+            value="yes_conda"
+          fi
+          echo -e "value is -${value}"
+          echo "::set-output name=ver_value::$value"
 
       - name: Install Anaconda
         if: ${{ steps.check-conda-version.outputs.ver_value }} == "no_conda"
