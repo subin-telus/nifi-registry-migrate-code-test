@@ -43,9 +43,9 @@ jobs:
           conda_ver=$(head temp.txt)
           not_found="command not found"
           if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
-          value="true"
+           value="true"
           else
-          value="false"
+           value="false"
           fi
           echo "::set-output name=ver_value::$value"
           rm -rf temp.txt
@@ -67,8 +67,7 @@ jobs:
         shell: bash
         run: |
           conda init bash
-          conda activate ${{ env.conda_env }} 1> temp.txt 2>> temp.txt
-          rm -rf temp.txt
+          conda activate ${{ env.conda_env }}
           def_env=$(echo $CONDA_DEFAULT_ENV)
           echo "::set-output name=default_env::$def_env"
 
