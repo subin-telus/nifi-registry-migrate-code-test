@@ -39,7 +39,7 @@ jobs:
         id: get-conda-version
         shell: bash
         run: |
-          conda --version 1> temp.txt 2>> temp.txt
+          cond --version 1> temp.txt 2>> temp.txt
           conda_ver=$(head temp.txt)
           not_found="command not found"
           if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
@@ -54,6 +54,7 @@ jobs:
         if: steps.get-conda-version.outputs.ver_value == 'true'
         shell: bash
         run: |
+          echo -e "${{ steps.get-conda-version.outputs.ver_value }}"
           echo -e "\nInstalling Conda\n"
           #sh anaconda_installer.sh
 
@@ -69,7 +70,8 @@ jobs:
           eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
           conda init bash
           conda activate ${{ env.conda_env }}
-          echo "def_env=$(echo $CONDA_DEFAULT_ENV)" >> $GITHUB_ENV
+          def_env=$(echo $CONDA_DEFAULT_ENV)
+          echo "$def_env" >> $GITHUB_ENV
           echo -e "def env is -${def_env}-"
           echo -e "default - $CONDA_DEFAULT_ENV"
           # echo "::set-output name=default_env::$(echo $CONDA_DEFAULT_ENV)"
