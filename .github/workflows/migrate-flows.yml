@@ -52,10 +52,10 @@ jobs:
         continue-on-error: true
 
       - name: Check Conda Version
-        if: steps.get-conda-version.outputs.ver_value != 'true'
+        if: ${{ steps.get-conda-version.outputs.ver_value }} == 'true'
         shell: bash
         run: |
-          echo -e "${{ steps.get-conda-version.outputs.ver_value }}"
+          echo ${{ steps.get-conda-version.outputs.ver_value }}
           echo -e "\nInstalling Conda\n"
           #sh anaconda_installer.sh
 
@@ -75,6 +75,8 @@ jobs:
           echo "::set-output name=default_env::$def_env"
 
       - name: Check if connected to venv
-        if: ${{ steps.connect-venv.outputs.default_env == env.conda_env }}
+        if: ${{ steps.connect-venv.outputs.default_env != env.conda_env }}
         run: |
-          echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
+          echo "::error::Unable to activate conda venv - ${{ env.conda_env }}"
+          echo -e "\nRe-installing Conda\n"
+          sh anaconda_installer.sh
