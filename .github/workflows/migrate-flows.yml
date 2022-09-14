@@ -24,7 +24,7 @@ jobs:
 			  with:
 			  	repository: ${{ env.repo }}
 				token: ${{ secrets.TOKEN }}
-				
+
  	- conda_installation_check:
 		runs-on: self-hosted
   		steps:
