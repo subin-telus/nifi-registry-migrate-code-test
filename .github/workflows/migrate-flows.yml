@@ -54,9 +54,10 @@ jobs:
             value="yes_conda"
           fi
           echo "::set-output name=ver_value::$value"
+          echo "::set-output name=no_conda::no_conda"
 
       - name: Install Anaconda
-        if: ${{ steps.check-conda-version.outputs.ver_value }} == 'no_conda'
+        if: ${{ steps.check-conda-version.outputs.ver_value == steps.check-conda-version.outputs.no_conda }}
         shell: bash
         run: |
           echo -e "\nInstalling Conda\n"
