@@ -3,26 +3,26 @@ name: Check if python, modules and venv available to run flow-migrate scripts.
 
 on:
  # Run only on manuual trigger
- 	workflow_dispatch:
+ workflow_dispatch:
 
 
 # Variables defined
 env:
   download_dir: "/tmp"
-	anaconda_location: "/apps/anaconda"
-	anaconda_bin_path: "/apps/anaconda/bin"
-	conda_env: "nifi_reg_py_env"
-	conda_packages: "python=3.9.12 pip=21.2.4"
-	pip_modules: "nipyapi pip_search jproperties"
-	repo: "subin-telus/nifi-registry-migrate-code-test"
-	proxy: "http://webproxystatic-on.tsl.telus.com:8080"
+  anaconda_location: "/apps/anaconda"
+  anaconda_bin_path: "/apps/anaconda/bin"
+  conda_env: "nifi_reg_py_env"
+  conda_packages: "python=3.9.12 pip=21.2.4"
+  pip_modules: "nipyapi pip_search jproperties"
+  repo: "subin-telus/nifi-registry-migrate-code-test"
+  proxy: "http://webproxystatic-on.tsl.telus.com:8080"
 
 
 jobs:
 
   checkout_repo:
-		runs-on: self-hosted
-		steps:
+    runs-on: self-hosted
+    steps:
 
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -32,8 +32,8 @@ jobs:
 
   conda_installation_check:
     runs-on: self-hosted
-		steps:
-
+    steps:
+    
       - name: Get Conda Version
         id: get-conda-version
         shell: bash
