@@ -72,13 +72,10 @@ jobs:
           conda init bash
           conda activate ${{ env.conda_env }}
           def_env=$(echo $CONDA_DEFAULT_ENV)
-          #echo "def_env=${def_env}" >> $GITHUB_ENV
-          echo -e "def env is -${def_env}-"
-          echo -e "default - $CONDA_DEFAULT_ENV"
           echo "::set-output name=default_env::$def_env"
 
       - name: Check if connected to venv
-        if: ${{ steps.connect-venv.outputs.default_env != env.conda_env }}
+        if: ${{ steps.connect-venv.outputs.default_env == env.conda_env }}
         run: |
           echo ${{ steps.connect-venv.outputs.default_env }}
           echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
