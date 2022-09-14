@@ -52,7 +52,7 @@ jobs:
         continue-on-error: true
 
       - name: Check Conda Version
-        if: steps.get-conda-version.outputs.ver_value == 'true'
+        if: steps.get-conda-version.outputs.ver_value != 'true'
         shell: bash
         run: |
           echo -e "${{ steps.get-conda-version.outputs.ver_value }}"
