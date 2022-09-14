@@ -77,6 +77,4 @@ jobs:
       - name: Check if connected to venv
         if: ${{ steps.connect-venv.outputs.default_env == env.conda_env }}
         run: |
-          echo ${{ steps.connect-venv.outputs.default_env }}
           echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
-          exit 1
