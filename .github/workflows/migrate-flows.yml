@@ -27,8 +27,8 @@ jobs:
 
  	- conda_installation_check:
 		runs-on: self-hosted
-  		steps:
-   			- name: Get Conda Version
+		steps:
+			- name: Get Conda Version
 			  id: get-conda-version
 			  shell: bash
 			  run: |
@@ -49,7 +49,6 @@ jobs:
 			  	echo -e "\nInstalling Conda\n"
 				sh anaconda_installer.sh
 
- 	
 	- python_installation_check:
 		runs-on: self-hosted
 		steps:
