@@ -1,11 +1,14 @@
 name: Check if python, modules and venv available to run flow-migrate scripts.
+
+
 on:
  # Run only on manuual trigger
-	workflow_dispatch:
+ 	workflow_dispatch:
+
 
 # Variables defined
 env:
-	download_dir: "/tmp"
+  download_dir: "/tmp"
 	anaconda_location: "/apps/anaconda"
 	anaconda_bin_path: "/apps/anaconda/bin"
 	conda_env: "nifi_reg_py_env"
@@ -14,55 +17,61 @@ env:
 	repo: "subin-telus/nifi-registry-migrate-code-test"
 	proxy: "http://webproxystatic-on.tsl.telus.com:8080"
 
+
 jobs:
 
-	- checkout_repo:
+  checkout_repo:
 		runs-on: self-hosted
 		steps:
-			- name: Checkout Repository
-			  uses: actions/checkout@v3
-			  with:
-			  	repository: ${{ env.repo }}
-				token: ${{ secrets.TOKEN }}
 
-	- conda_installation_check:
-		runs-on: self-hosted
-		steps:
-			- name: Get Conda Version
-			  id: get-conda-version
-			  shell: bash
-			  run: |
-			  	conda --version 1> temp.txt 2>> temp.txt
-				conda_ver=$(head temp.txt)
-				not_found="command not found"
-				if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
-					value="true"
-				else
-					value="false"
-				fi
-				echo "::set-output name=ver_value::$value"
-				rm -rf temp.txt
-			- name: Check Conda Version
-			  if: steps.get-conda-version.outputs.ver_value == 'true'
-			  shell: bash
-			  run: |
-			  	echo -e "\nInstalling Conda\n"
-				sh anaconda_installer.sh
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.repo }}
+          token: ${{ secrets.TOKEN }}
 
-	- python_installation_check:
-		runs-on: self-hosted
+  conda_installation_check:
+    runs-on: self-hosted
 		steps:
-			- name: Connect to venv
-			  id: connect-venv
-			  shell: bash
-			  run: |
-			  	conda init bash
-				conda activate ${{ env.conda_env }} 1> temp.txt 2>> temp.txt
-				rm -rf temp.txt
-				def_env=$(echo $CONDA_DEFAULT_ENV)
-				echo "::set-output name=default_env::$def_env"
-			- name: Check if connected to venv
-			  if: ${{ steps.connect-venv.outputs.default_env }} != ${{ env.conda_env }}
-			  run: |
-			  	echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
-				exit 1
+
+      - name: Get Conda Version
+        id: get-conda-version
+        shell: bash
+        run: |
+          conda --version 1> temp.txt 2>> temp.txt
+          conda_ver=$(head temp.txt)
+          not_found="command not found"
+          if [[ "$conda_ver" =~ .*"$not_found".* ]]; then
+          value="true"
+          else
+          value="false"
+          fi
+          echo "::set-output name=ver_value::$value"
+          rm -rf temp.txt
+
+      - name: Check Conda Version
+        if: steps.get-conda-version.outputs.ver_value == 'true'
+        shell: bash
+        run: |
+          echo -e "\nInstalling Conda\n"
+          sh anaconda_installer.sh
+
+  python_installation_check:
+    runs-on: self-hosted
+    steps:
+
+      - name: Connect to venv
+        id: connect-venv
+        shell: bash
+        run: |
+          conda init bash
+          conda activate ${{ env.conda_env }} 1> temp.txt 2>> temp.txt
+          rm -rf temp.txt
+          def_env=$(echo $CONDA_DEFAULT_ENV)
+          echo "::set-output name=default_env::$def_env"
+
+      - name: Check if connected to venv
+        if: ${{ steps.connect-venv.outputs.default_env }} != ${{ env.conda_env }}
+        run: |
+          echo "::error::Unable to activate conda venv - ${{ env.conda_env }}. Exiting..."
+          exit 1
