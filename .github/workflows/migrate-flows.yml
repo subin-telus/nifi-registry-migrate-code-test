@@ -32,6 +32,7 @@ jobs:
 
   conda_installation_check:
     runs-on: self-hosted
+    needs: [checkout_repo]
     steps:
     
       - name: Get Conda Version
@@ -58,6 +59,7 @@ jobs:
 
   python_installation_check:
     runs-on: self-hosted
+    needs: [conda_installation_check]
     steps:
 
       - name: Connect to venv
