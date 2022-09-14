@@ -49,6 +49,7 @@ jobs:
           fi
           echo "::set-output name=ver_value::$value"
           rm -rf temp.txt
+        continue-on-error: true
 
       - name: Check Conda Version
         if: steps.get-conda-version.outputs.ver_value == 'true'
