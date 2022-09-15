@@ -9,7 +9,7 @@ repo_url="https://repo.anaconda.com/archive"
 anaconda_exec_file_from_url="Anaconda3-2022.05-Linux-x86_64.sh"
 conda_env="nifi_reg_py_env"
 conda_packages="python=3.9.12 pip=21.2.4"
-pip_modules="nipyapi pip_search"
+pip_modules="nipyapi pip_search jproperties "
 proxy="http://webproxystatic-on.tsl.telus.com:8080"
 
 #Download and install anaconda
