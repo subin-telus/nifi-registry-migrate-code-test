@@ -89,4 +89,7 @@ jobs:
       - name: Install Python packages
         shell: bash
         run: |
+          eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+          conda init bash
+          conda activate ${{ env.conda_env }}
           pip install ${{ env.pip_modules }}
