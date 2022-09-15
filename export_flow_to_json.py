@@ -31,9 +31,9 @@ Nifiurl = connect_properties.get("secured_nifi_url").data
 processorgroupName = connect_properties.get("processor_group").data 
 ca_file = connect_properties.get("cafile").data
 #ldap_user = connect_properties.get("username").data
-ldap_user = os.environ['USERNAME']
+ldap_user = os.environ['username']
 #ldap_password = connect_properties.get("password").data
-ldap_password = os.environ['PASSWORD']
+ldap_password = os.environ['password']
 export_json_file = connect_properties.get("workflow_export_file").data
 
 # Check if exported json file already present
