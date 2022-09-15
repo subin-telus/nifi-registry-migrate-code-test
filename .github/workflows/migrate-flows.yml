@@ -11,6 +11,8 @@ env:
   conda_env: "nifi_reg_py_env"
   pip_modules: "nipyapi pip_search jproperties"
   repo: "subin-telus/nifi-registry-migrate-code-test"
+  username: ${{ secrets.USERNAME }}
+  password: ${{ secrets.PASSWORD }}
 
 
 jobs:
