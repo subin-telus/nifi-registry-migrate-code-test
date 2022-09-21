@@ -35,7 +35,7 @@ jobs:
       - name: Get conda version
         shell: bash
         run: |
-          cond --version 1> temp.txt 2>> temp.txt
+          conda --version 1> temp.txt 2>> temp.txt
         continue-on-error: true
 
       - name: Check conda version
