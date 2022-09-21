@@ -1,0 +1,25 @@
+name: Initialize venv
+description: Initialize venv for checking pip modules and executing migrate python scripts.
+
+inputs:
+  cmd:
+    description: Commands to Initialize venv
+    required: true
+    type: string
+  
+  conda_env:
+    description: Conda env
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Install Python packages
+      shell: bash
+      run: |
+        eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+        conda init bash
+        conda activate ${{ inputs.conda_env }}
+        ${{ inputs.cmd }}

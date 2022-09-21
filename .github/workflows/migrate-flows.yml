@@ -89,12 +89,16 @@ jobs:
     steps:
     
       - name: Install Python packages
-        shell: bash
-        run: |
-          eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
-          conda init bash
-          conda activate ${{ env.conda_env }}
-          pip install ${{ env.pip_modules }}
+        uses: ./.github/actions/init_venv
+        with:
+          cmd: "pip install ${{ env.pip_modules }}"
+          conda_env: ${{ env.conda_env }}
+        #shell: bash
+        #run: |
+        #  eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+        #  conda init bash
+        #  conda activate ${{ env.conda_env }}
+        # pip install ${{ env.pip_modules }}
 
   Export_flow:
     runs-on: self-hosted
