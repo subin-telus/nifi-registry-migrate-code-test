@@ -69,7 +69,7 @@ jobs:
         id: connect-venv
         uses: ./.github/actions/init_venv
         with:
-          cmd: "def_env=$(echo $CONDA_DEFAULT_ENV); echo "\""::set-output name=default_env::$def_env"\"";"
+          cmd: "def_env=$(echo $CONDA_DEFAULT_ENV); echo "::set-output name=default_env::$def_env";"
           conda_env: ${{ env.conda_env }}
 
       - name: Check if connected to venv
