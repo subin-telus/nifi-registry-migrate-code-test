@@ -60,5 +60,5 @@ The feature branch needs to be modified with the Properties files, `source.prope
 ```
 The USERNAME and PASSWORD used for flow migration are added in secrets.
 The CA cert file is added to this repository in ca_cert dir.
-Make sure self hosted runner is attached to this repository before triggering the migrate scripts.
+Make sure self hosted runner is attached to this repository before triggering the workflow.
 ```
