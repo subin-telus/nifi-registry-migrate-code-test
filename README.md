@@ -8,7 +8,7 @@ This repository contains the Code for migrating a flow from one Nifi Registry to
 * [Notes](#Notes)
 
 ## Required Structure of flow on Nifi Canvas
-![alt text](/images/accepted_flow_structure_in_canvas.jpg)
+![alt text](/images/nifi_flow_migration-accepted_flow_structure.jpg)
 
 **Rules**
 1.  A processor group can have either 1 child processor group or 1 child flow.
