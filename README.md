@@ -14,6 +14,7 @@ This repository contains the Code for migrating a flow from one Nifi Registry to
 1.  A processor group can have either 1 child processor group or 1 child flow.
 2.  A processor group cannot have 0 children.
 3.  A processor group cannot have more than 1 child.
+4.  The processor group with the child flow is to be associated with a bucket in registry.
 
 ## Procedure for Promoting a flow
 
