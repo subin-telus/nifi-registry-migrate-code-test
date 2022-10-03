@@ -10,7 +10,10 @@ This repository contains the Code for migrating a flow from one Nifi Registry to
 ## Required Structure of flow on Nifi Canvas
 ![alt text](/images/accepted_flow_structure_in_canvas.jpg)
 
-The above structure is required for the code to migrate the flow from 1 registry to another.
+**Rules**
+1.  A processor group can have either 1 child processor group or 1 child flow.
+2.  A processor group cannot have 0 children.
+3.  A processor group cannot have more than 1 child.
 
 ## Procedure for Promoting a flow
 
@@ -30,7 +33,7 @@ A pull of the `dev` branch is required and create a new branch with `feat-<reque
 | Pre Production | `preprod` |
 | Development | `dev` |
 
-Example, If `processor group = test_processor_group01` has to be promoted from `dev` to `preprod`, then `target_env = preprod` and a request is been raised for the same with `request_id = 1111`, the feature branch name is expected to be: `feat-1111-preprod-test_processor_group01`.
+Example, If `processor group = test_processor_group01` has to be promoted from `dev` to `preprod`, then `target_env = preprod` and a and a request was created with  `request_id = 1111`, the feature branch name is expected to be: `feat-1111-preprod-test_processor_group01`.
 
 The feature branch needs to be modified with the Properties files, `source.properties` and `target.properties` for the following values:
 
