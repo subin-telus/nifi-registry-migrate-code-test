@@ -1,8 +1,16 @@
 # nifi-registry-flow-migrate
 This repository contains the Code for migrating a flow from one Nifi Registry to another.
 
+## Table of Contents
+* [Required Structure of flow on Nifi Canvas](#Required-Structure-of-flow-on-Nifi-Canvas)
+* [Procedure for Promoting a flow](#Procedure-for-Promoting-a-flow)
+* [Flow Diagram of Code](#Flow-Diagram-of-Codes)
+* [Notes](#Notes)
+
 ## Required Structure of flow on Nifi Canvas
 ![alt text](/images/accepted_flow_structure_in_canvas.jpg)
+
+The above structure is required for the code to migrate the flow from 1 registry to another.
 
 ## Procedure for Promoting a flow
 
