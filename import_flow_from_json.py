@@ -19,7 +19,7 @@ logging.getLogger('nipyapi.canvas').setLevel(logging.INFO)
 
 # Importing Input values from dev.properties
 connect_properties = Properties()
-with open('pre_prod.properties', 'rb') as config_file:
+with open('target.properties', 'rb') as config_file:
         connect_properties.load(config_file)
 
 # Enable TLS check
