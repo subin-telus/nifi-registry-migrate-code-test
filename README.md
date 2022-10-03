@@ -41,7 +41,7 @@ The feature branch needs to be modified with the Properties files, `source.prope
 ## Flow Diagram of Code
 ![alt text](/images/nifi_flow_migration_diagram.jpg)
 
-**Notes:**
+## Notes
 ```
 The USERNAME and PASSWORD used for flow migration are added in secrets.
 The CA cert file is added to this repository in ca_cert dir.
