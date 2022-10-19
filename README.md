@@ -34,7 +34,7 @@ A pull of the `dev` branch is required and create a new branch with `feat-<reque
 | Pre Production | `preprod` |
 | Development | `dev` |
 
-Example, If `processor group = test_processor_group01` has to be promoted from `dev` to `preprod`, then `target_env = preprod` and a and a request was created with  `request_id = 1111`, the feature branch name is expected to be: `feat-1111-preprod-test_processor_group01`.
+Example, If `processor group = test_processor_group01` has to be promoted from `dev` to `preprod`, then `target_env = preprod` and a request was created with  `request_id = 1111`, the feature branch name is expected to be: `feat-1111-preprod-test_processor_group01`.
 
 The feature branch needs to be modified with the Properties files, `source.properties` and `target.properties` for the following values:
 
